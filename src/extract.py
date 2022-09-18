@@ -43,10 +43,11 @@ conn = psycopg2.connect(
 
 cur = conn.cursor()
 
-# Create schema and table
+# Create schema and tables
 # TODO: move this logic to a db init module, db should prime itself on project start
 cur.execute("create schema if not exists raw;")
 cur.execute("CREATE TABLE if not exists raw.playlists (id SERIAL PRIMARY KEY, playlist_id VARCHAR, playlist_json JSONB);")
+cur.execute("CREATE TABLE if not exists raw.playlist_tracks (id SERIAL PRIMARY KEY, playlist_id VARCHAR, track_id VARCHAR, playlist_track_json JSONB);")
 conn.commit()
 
 #Load Playlists Json and insert into DB
@@ -61,4 +62,26 @@ for playlist in playlists['items']:
     cur.execute(insert_sql)
     conn.commit()
     #print (playlist)
+
+#Grab a list of playlist IDs that we can use to traverse the directory
+with open(DATA_DIR + '/playlists.json') as f:
+    playlists = json.load(f)
+playlist_ids=[x["id"] for x in playlists["items"]]
+
+for playlist_id in playlist_ids:
+    #TODO: add handler for file-not-exists
+    with open(DATA_DIR + '/' + playlist_id +  '_tracks.json') as f:
+        playlist_tracks = json.load(f)
+        for playlist_track in playlist_tracks:
+            #ugh, string cleaning 
+            #TODO: ugh, this is a bad way to do string cleaning like this - need either industrial in-line handler, or build proper own function
+            playlist_track['track']['album']['name'] = str((playlist_track['track']['album']['name'])).replace("'",'')
+            playlist_track['track']['name'] = str((playlist_track['track']['name'])).replace("'",'')
+            playlist_track['track']['artists'] = [str(x["name"]).replace("'",'')  for x in playlist_track['track']['artists']]
+            playlist_track['track']['album']['artists'] = [str(x["name"]).replace("'",'')  for x in playlist_track['track']['album']['artists']]
+            insert_sql = "Insert into raw.playlist_tracks (playlist_id, track_id, playlist_track_json) values('" + playlist_id + "', '" + playlist_track['track']['id'] + "', '" +  json.dumps(playlist_track) +  "');"
+            # print(insert_sql)
+            cur.execute(insert_sql)
+            conn.commit()
+
 conn.close()
