@@ -1,6 +1,7 @@
 # python files
 __pycache__/
 *.pyc
+.cache
 
 # dbt
 target/

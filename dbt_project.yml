@@ -55,5 +55,5 @@ models:
 
 on-run-start:
  - "{{ create_schemas(env_var('PG_DATABASE'), ['raw','ingest','prep','dw']) }}"
- - "{{ create_stage(env_var('PG_DATABASE'), 'raw', 'load_stage') }}"
+ #- "{{ create_stage(env_var('PG_DATABASE'), 'raw', 'load_stage') }}"
 on-run-end:
