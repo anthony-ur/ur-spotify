@@ -35,6 +35,7 @@ for playlist in user_playlists_urls:
 # Connect to DB
 # TODO: externalize all this to main env
 conn = psycopg2.connect(
+    
     host="host.docker.internal",
     database="postgres",
     user="postgres",
@@ -48,7 +49,7 @@ cur = conn.cursor()
 cur.execute("create schema if not exists raw;")
 cur.execute("CREATE TABLE if not exists raw.playlists (id SERIAL PRIMARY KEY, playlist_id VARCHAR, playlist_json JSONB);")
 cur.execute("CREATE TABLE if not exists raw.playlist_tracks (id SERIAL PRIMARY KEY, playlist_id VARCHAR, track_id VARCHAR, playlist_track_json JSONB);")
-cur.execute("CREATE TABLE if not exists raw.tracks (id SERIAL PRIMARY KEY, track_id VARCHAR, track_json JSONB);")
+cur.execute("CREATE TABLE if not exists raw.tracks (id SERIAL PRIMARY KEY, track_id VARCHAR, name VARCHAR, track_json JSONB);")
 conn.commit()
 
 #Load Playlists Json and insert into DB
@@ -88,13 +89,13 @@ for playlist_id in playlist_ids:
 
 # TRACKS
 # from all the playlist tracks loaded, get just a distinct list of tracks
-tracks_sql = "select distinct track_id as track_id from raw.playlist_tracks" 
+tracks_sql = "select distinct track_id as track_id, playlist_track_json->'track'->>'name' as name from raw.playlist_tracks;" 
 cur.execute(tracks_sql)
 tracks_result = cur.fetchall()
 for track in tracks_result:
     #print(track[0])
     sp.audio_features(track[0])
-    insert_sql = "Insert into raw.tracks (track_id, track_json) values('" + track[0] + "', '" + json.dumps(sp.audio_features(track[0])) +  "');"
+    insert_sql = "Insert into raw.tracks (track_id, name, track_json) values('" + track[0] + "', '" + track[1] + "', '"  + json.dumps(sp.audio_features(track[0])) +  "');"
     cur.execute(insert_sql)
     conn.commit()
 
