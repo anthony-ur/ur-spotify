@@ -36,7 +36,7 @@ vars:
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 models:
   +transient: false
-  microshare_banaja:
+  ur_spotify:
     raw:
       +enabled: true
       +schema: raw
@@ -54,6 +54,6 @@ models:
       +schema: dw
 
 on-run-start:
- - "{{ create_schemas(env_var('SNOWFLAKE_TRANSFORM_DATABASE'), ['raw','ingest','prep','dw']) }}"
- - "{{ create_stage(env_var('SNOWFLAKE_TRANSFORM_DATABASE'), 'raw', 'load_stage') }}"
+ - "{{ create_schemas(env_var('PG_DATABASE'), ['raw','ingest','prep','dw']) }}"
+ - "{{ create_stage(env_var('PG_DATABASE'), 'raw', 'load_stage') }}"
 on-run-end:

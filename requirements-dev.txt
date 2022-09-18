@@ -1,5 +1,6 @@
 dbt-core==1.2.1
 dbt-snowflake==1.2.0
+dbt-postgres==1.2.1
 pandas==1.4.4
 psycopg2==2.9.3
 pyarrow==8.0.0
