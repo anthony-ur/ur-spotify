@@ -1,8 +1,8 @@
 version: 2
 sources:
   - name: spotify
-    database: POSTGRES
-    schema: spotify
+    database: postgres
+    schema: raw
     tables:
       - name: playlist
         identifier: playlists
