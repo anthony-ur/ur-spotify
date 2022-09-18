@@ -1,0 +1,24 @@
+# python files
+__pycache__/
+*.pyc
+
+# dbt
+target/
+dbt_packages/
+logs/
+**.dbt/
+.build
+.tmp
+.data
+
+# env file
+.env
+
+# custom project files
+**/*scratch*
+
+# pbi
+**/*.pbix
+
+# xls temporary
+**/~$*.xlsx

@@ -1,0 +1,108 @@
+{
+    "files.exclude": {
+        "**/__pycache__": true,
+        "dbt_modules/**": true
+    },
+    "files.associations": {
+        // jinja redering for file types
+        "**/transform/**/*.sql": "jinja-sql",
+        "**/transform/**/*.yml": "jinja-yaml",
+        // "**/transform/**/*.yaml": "jinja-yaml",
+        "**/transform/**/docs/**/*.md": "jinja-md",
+        // optional: don't format models in `target/` dir
+        "**/.build/**": "",
+    },
+    "material-icon-theme.folders.color": "#ef5350",
+    "material-icon-theme.showWelcomeMessage": false,
+    "material-icon-theme.folders.theme": "none",
+    "material-icon-theme.activeIconPack": "none",
+    "material-icon-theme.files.associations": {
+        "*.yaml": "yaml",
+        "*.yml": "yaml"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "workbench.editor.highlightModifiedTabs": true,
+    // show whitespace as dots
+    "editor.renderWhitespace": "all",
+    // Tab settings
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "workbench.colorCustomizations": {
+        "activityBar.activeBackground": "#1DB954",
+        "activityBar.activeBorder": "#5F1F32",
+        "activityBar.background": "#191414",
+        "activityBar.foreground": "#e7e7e7",
+        "activityBar.inactiveForeground": "#e7e7e799",
+        "activityBarBadge.background": "#5F1F32",
+        "activityBarBadge.foreground": "#e7e7e7",
+        "editorGroup.border": "#005397",
+        "panel.border": "#005397",
+        "sash.hoverBorder": "#005397",
+        "sideBar.border": "#005397",
+        "statusBar.background": "#191414",
+        "statusBar.foreground": "#e7e7e7",
+        "statusBarItem.remoteBackground": "#1DB954",
+        "statusBarItem.remoteForeground": "#e7e7e7",
+        "titleBar.activeBackground": "#191414",
+        "titleBar.activeForeground": "#e7e7e7",
+        "titleBar.inactiveBackground": "#191414",
+        "titleBar.inactiveForeground": "#e7e7e7",
+        "titleBar."
+    },
+    // todo-tree
+    "todo-tree.general.tags": [
+        "BUG",
+        "HACK",
+        "FIXME",
+        "TODO",
+        "NOTE",
+        "???"
+    ],
+    "todo-tree.regex.regex": "(//|#|--|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+    "todo-tree.highlights.defaultHighlight": {
+        "type": "text"
+    },
+    "todo-tree.highlights.customHighlight": {
+        "TODO": {
+            "icon": "check"
+        },
+        "???": {
+            "icon": "question"
+        }
+    },
+    "todo-tree.general.statusBar": "tags",
+    "todo-tree.highlights.backgroundColourScheme": [
+        "red",
+        "orange",
+        "yellow",
+        "green",
+        "lightblue",
+        "violet",
+    ],
+    "todo-tree.highlights.foregroundColourScheme": [
+        "white",
+        "black",
+        "black",
+        "white",
+        "black",
+        "black"
+    ],
+    "todo-tree.highlights.useColourScheme": true,
+    // you get this by calling `where sqlfluff` after calling `pip install sqlfluff`
+    "sql.linter.executablePath": "/usr/local/bin/sqlfluff", // use which sqlfluff
+    "sql.linter.run": "onSave", // "onType" or "onSave" if you'd like it less frequent
+    "[jinja-sql]": {
+        "editor.defaultFormatter": "dorzey.vscode-sqlfluff"
+    },
+    "[sql]": {
+        "editor.defaultFormatter": "dorzey.vscode-sqlfluff" // henriblancke.vscode-dbt-formatter
+    },
+    "material-icon-theme.opacity": 0.1,
+    "material-icon-theme.saturation": 0.1,
+    
+    
+    
+}

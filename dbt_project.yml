@@ -1,0 +1,59 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'ur_spotify'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'ur_spotify'
+
+# These configurations specify where dbt should look for different types of files.
+# The `source-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["transform/models"]
+analysis-paths: ["transform/analysis"]
+test-paths: ["transform/tests"]
+seed-paths: ["transform/seeds"]
+macro-paths: ["transform/macros"]
+snapshot-paths: ["transform/snapshots"]
+
+target-path: ".build"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+  - ".build"
+
+# variables
+# https://docs.getdbt.com/docs/building-a-dbt-project/building-models/using-variables
+vars:
+  cutoff_ts: '2021-01-01 00:00:00.000'
+  warehouse_name: "{{ env_var('SNOWFLAKE_TRANSFORM_WAREHOUSE') }}"
+  incremental_interval: '1 day'
+  unknown_value: '<Unknown>'
+  na_value: '<N/A>'
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+models:
+  +transient: false
+  microshare_banaja:
+    raw:
+      +enabled: true
+      +schema: raw
+    ingest:
+      +enabled: true
+      +materialized: table
+      +schema: ingest
+    prep:
+      +enabled: true
+      +materialized: table
+      +schema: prep
+    dw:
+      +enabled: true
+      +materialized: table
+      +schema: dw
+
+on-run-start:
+ - "{{ create_schemas(env_var('SNOWFLAKE_TRANSFORM_DATABASE'), ['raw','ingest','prep','dw']) }}"
+ - "{{ create_stage(env_var('SNOWFLAKE_TRANSFORM_DATABASE'), 'raw', 'load_stage') }}"
+on-run-end:

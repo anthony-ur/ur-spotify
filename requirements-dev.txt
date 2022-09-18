@@ -1,0 +1,10 @@
+dbt-core==1.2.1
+dbt-snowflake==1.2.0
+pandas==1.4.4
+pyarrow==8.0.0
+pymssql==2.2.5
+python-dotenv==0.21.0
+snowflake-sqlalchemy==1.4.1
+SQLAlchemy==1.4.41
+sqlfluff==1.3.1
+sqlfluff-templater-dbt==1.3.1

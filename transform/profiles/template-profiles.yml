@@ -1,0 +1,39 @@
+config:
+    send_anonymous_usage_stats: False
+    use_colors: True
+
+microshare_banaja:
+  target: dev
+  outputs:
+    dev:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') }}"
+      database: "{{ env_var('SNOWFLAKE_TRANSFORM_DATABASE') }}"
+      role: "{{ env_var('SNOWFLAKE_TRANSFORM_ROLE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_TRANSFORM_WAREHOUSE') }}"
+      schema: "{{ env_var('SNOWFLAKE_TRANSFORM_SCHEMA') }}"
+      threads: "{{ env_var('DBT_THREADS') | as_number }}"
+      client_session_keep_alive: False
+    prod:
+      type: snowflake
+      threads: 16
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_PROD_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PROD_PASSWORD') }}"
+      database: "{{ env_var('SNOWFLAKE_TRANSFORM_DATABASE') }}"
+      role: "{{ env_var('SNOWFLAKE_TRANSFORM_ROLE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_TRANSFORM_WAREHOUSE') }}"
+      schema: "{{ env_var('SNOWFLAKE_TRANSFORM_SCHEMA') }}"
+      client_session_keep_alive: False
+    ci:
+      type: snowflake
+      threads: 16
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_CI_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_CI_PASSWORD') }}"
+      database: "{{ env_var('SNOWFLAKE_TRANSFORM_DATABASE') }}"
+      role: "{{ env_var('SNOWFLAKE_TRANSFORM_ROLE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_TRANSFORM_WAREHOUSE') }}"
+      schema: "{{ env_var('SNOWFLAKE_TRANSFORM_SCHEMA') }}"
