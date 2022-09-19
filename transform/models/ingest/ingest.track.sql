@@ -9,17 +9,17 @@ select
     track_id,
     name,
     (track_json[0]->>'duration_ms')::numeric as duration_ms,
-    track_json[0]->>'key' as key,
-    track_json[0]->>'mode' as mode,
-    track_json[0]->>'tempo' as tempo,
-    track_json[0]->>'energy' as energy,
-    track_json[0]->>'liveness' as liveness,
-    track_json[0]->>'loudness' as loudness,
-    track_json[0]->>'speechiness' as speechiness,
-    track_json[0]->>'acousticness' as acousticness,
-    track_json[0]->>'danceability' as danceability,
-    track_json[0]->>'time_signature' as time_signature,
-    track_json[0]->>'instrumentalness' as instrumentalness 
+    ROUND((track_json[0]->>'key')::numeric,2) as key,
+    ROUND((track_json[0]->>'mode')::numeric,2) as mode,
+    ROUND((track_json[0]->>'tempo')::numeric,2) as tempo,
+    ROUND((track_json[0]->>'energy')::numeric,2) as energy,
+    ROUND((track_json[0]->>'liveness')::numeric,2) as liveness,
+    ROUND((track_json[0]->>'loudness')::numeric,2) as loudness,
+    ROUND((track_json[0]->>'speechiness')::numeric,2) as speechiness,
+    ROUND((track_json[0]->>'acousticness')::numeric,2) as acousticness,
+    ROUND((track_json[0]->>'danceability')::numeric,2) as danceability,
+    ROUND((track_json[0]->>'time_signature')::numeric,2) as time_signature,
+    ROUND((track_json[0]->>'instrumentalness')::numeric,2) as instrumentalness 
 from raw_track 
 )
 SELECT *

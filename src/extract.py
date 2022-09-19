@@ -89,7 +89,8 @@ for playlist_id in playlist_ids:
             conn.commit()
 
 # TRACKS
-# from all the playlist tracks loaded, get just a distinct list of tracks
+#TODO: get track popularity. Any other stats?
+# from all the playlist tracks loaded, get just a distinct list of tracks, and get their descriptive info from spotify API
 tracks_sql = "select distinct track_id as track_id, playlist_track_json->'track'->>'name' as name from raw.playlist_tracks;" 
 cur.execute(tracks_sql)
 tracks_result = cur.fetchall()
