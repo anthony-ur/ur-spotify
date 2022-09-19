@@ -43,7 +43,7 @@ TODO: Automate initial run
 1. Run `src/extract.py` (will pull in your first 50 playlists, all tracks and track meta, store local json, prime/created db structures and load raw tables)
 2. Run `dbt run` in the VS Code terminal (will run transofrmation pipeline from raw to dw)
 3. Connect to the database created using DB info in your `.env`
-4. SELECT * FROM 
+4. SELECT * FROM (have fun) 
 
 
 
@@ -60,10 +60,10 @@ dbt build
 # run dbt models
 dbt run
 # run select dbt model(s), in this example job_order
-dbt run --select +udw.job_order+ # run udw.job_order model, including all upstream and downstream models
-dbt run --select +udw.job_order # run udw.job_order model including all upstream models that udw.job_order depends on
-dbt run --select udw.job_order+ # run udw.job_order model including all downstream models that depend on udw.job_order
-dbt run --select udw.job_order # run udw.job_order model only
+dbt run --select +dw.artist+ # run dw.artist model, including all upstream AND downstream models
+dbt run --select +dw.artist # run dw.artist model including all upstream models that dw.artist depends on
+dbt run --select dw.artist+ # run dw.artist model including all downstream models that depend on dw.artist
+dbt run --select dw.artist # run dw.artist model only
 # run dbt tests
 dbt test
 ```
