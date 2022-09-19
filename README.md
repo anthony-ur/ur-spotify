@@ -2,7 +2,9 @@
 
 Welcome to the UR (Untitled Research): Spotify Project.
 
-This repository contains all code and neccessary assets for creating a highly functional Spotify data store.
+This repository contains all code and assets necessary for creating a highly functional Spotify database of your personal data, on your machine - ready for any kind of analytics.
+
+
 
 ## Overview
 

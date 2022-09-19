@@ -8,7 +8,7 @@ final as (
 select     
     track_id,
     name,
-    track_json[0]->>'duration_ms' as duration_ms,
+    (track_json[0]->>'duration_ms')::numeric as duration_ms,
     track_json[0]->>'key' as key,
     track_json[0]->>'mode' as mode,
     track_json[0]->>'tempo' as tempo,

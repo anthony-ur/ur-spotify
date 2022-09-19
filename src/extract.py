@@ -23,6 +23,7 @@ with open(DATA_DIR + '/playlists.json', 'w') as f:
 
 #Basic get of all tracks for all playlists for a given user
 #playlist_tracks = {}
+#TODO: add iteration logic so can handle more than 50 track limit
 user_playlists_urls = [x["external_urls"] for x in sp.user_playlists(SPOTIFY_USER_ID)["items"]]
 for playlist in user_playlists_urls:
     playlist_link = playlist['spotify']
